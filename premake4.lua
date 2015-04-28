@@ -17,12 +17,12 @@ print( _OPTIONS.platform )
         "src/**.c", "src/**.cpp", "src/**.h"
     }
 
-    configuration "debug"
+    configuration "Debug"
         defines     { "_DEBUG" }
         flags       { "Symbols" }
         targetsuffix "_d"
 
-    configuration "release"
+    configuration "Release"
         defines     { "NDEBUG" }
         flags       { "OptimizeSize" }
 
