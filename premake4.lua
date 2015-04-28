@@ -1,6 +1,11 @@
 solution "litehtml"
+
+print( _OPTIONS.platform )
     configurations { "release", "debug" }
-    platforms { "x32", "x64" }
+
+    if _ACTION ~= "android" and _OPTIONS.platform == nil then
+        platforms { "x32", "x64" }
+    end
     defines { "LITEHTML_UTF8" }
 
     targetname "litehtml"
@@ -21,7 +26,7 @@ solution "litehtml"
         defines     { "NDEBUG" }
         flags       { "OptimizeSize" }
 
-    configuration "windows"
+    configuration {"windows", "not *android*" }
         defines     { "WIN32" }
 
     project "litehtml"
@@ -29,6 +34,9 @@ solution "litehtml"
         if not os.is("windows") then
             buildoptions { "-std=c++11 -Wno-error=unused-variable -Wno-error=unused-parameter" }
         end
+
+        if androidsdk then androidsdk( 'android-14' ) end
+        if androidappabi then androidappabi( "armeabi-v7a" ) end
 
         configuration "x32"
             targetdir   "bin/i386"

@@ -8,8 +8,6 @@
 *.sln
 *.vcxproj*
 *.vcproj*
-Makefile
-*.make
 
 # Build results
 [Dd]ebug/
@@ -177,3 +175,14 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+## Ignores linux and android specific files, generated through premake.
+
+Makefile
+*.make
+ant.properties
+build.xml
+jni/
+jnirelease/
+objRelease/
+project.properties
