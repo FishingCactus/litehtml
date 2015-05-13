@@ -1,6 +1,11 @@
 solution "litehtml"
+
+print( _OPTIONS.platform )
     configurations { "release", "debug" }
-    platforms { "x32", "x64" }
+
+    if _ACTION ~= "android" and _OPTIONS.platform == nil then
+        platforms { "x32", "x64" }
+    end
     defines { "LITEHTML_UTF8" }
 
     targetname "litehtml"
@@ -12,16 +17,16 @@ solution "litehtml"
         "src/**.cpp", "src/**.h"
     }
 
-    configuration "debug"
+    configuration "Debug"
         defines     { "_DEBUG" }
         flags       { "Symbols" }
         targetsuffix "_d"
 
-    configuration "release"
+    configuration "Release"
         defines     { "NDEBUG" }
         flags       { "OptimizeSize" }
 
-    configuration "windows"
+    configuration {"windows", "not *android*" }
         defines     { "WIN32" }
         includedirs "src/gumbo/vs/"
 
@@ -30,6 +35,9 @@ solution "litehtml"
         if not os.is("windows") then
             buildoptions { "-std=c++11 -Wno-error=unused-variable -Wno-error=unused-parameter" }
         end
+
+        if androidsdk then androidsdk( 'android-14' ) end
+        if androidappabi then androidappabi( "armeabi-v7a" ) end
 
         configuration "x32"
             targetdir   "bin/i386"
