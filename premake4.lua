@@ -14,7 +14,7 @@ print( _OPTIONS.platform )
 
     files
     {
-        "src/**.c", "src/**.cpp", "src/**.h"
+        "src/**.cpp", "src/**.h"
     }
 
     configuration "Debug"
@@ -28,6 +28,7 @@ print( _OPTIONS.platform )
 
     configuration {"windows", "not *android*" }
         defines     { "WIN32" }
+        includedirs "src/gumbo/vs/"
 
     project "litehtml"
 
