@@ -162,7 +162,8 @@ namespace litehtml
 		combinator_descendant,
 		combinator_child,
 		combinator_adjacent_sibling,
-		combinator_general_sibling
+		combinator_general_sibling,
+		combinator_grouped
 	};
 
 	//////////////////////////////////////////////////////////////////////////

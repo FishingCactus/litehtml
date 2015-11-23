@@ -161,7 +161,7 @@ bool litehtml::css_selector::parse( const tstring& text )
 		return false;
 	}
 	string_vector tokens;
-	split_string(text, tokens, _t(""), _t(" \t>+~"), _t("(["));
+	split_string(text, tokens, _t(""), _t(" \t>+~,"), _t("(["));
 
 	if(tokens.empty())
 	{
@@ -173,7 +173,7 @@ bool litehtml::css_selector::parse( const tstring& text )
 	tchar_t combinator = 0;
 
 	tokens.pop_back();
-	while(!tokens.empty() && (tokens.back() == _t(" ") || tokens.back() == _t("\t") || tokens.back() == _t("+") || tokens.back() == _t("~") || tokens.back() == _t(">")))
+	while(!tokens.empty() && (tokens.back() == _t(" ") || tokens.back() == _t("\t") || tokens.back() == _t("+") || tokens.back() == _t("~") || tokens.back() == _t(">") || tokens.back() == _t(",")))
 	{
 		if(combinator == _t(' ') || combinator == 0)
 		{
@@ -207,6 +207,9 @@ bool litehtml::css_selector::parse( const tstring& text )
 		break;
 	case _t('~'):
 		m_combinator	= combinator_general_sibling;
+		break;
+	case _t(','):
+		m_combinator	= combinator_grouped;
 		break;
 	default:
 		m_combinator	= combinator_descendant;

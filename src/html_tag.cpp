@@ -558,6 +558,10 @@ int litehtml::html_tag::select(const css_selector& selector, bool apply_pseudo)
 	int right_res = select(selector.m_right, apply_pseudo);
 	if(right_res == select_no_match)
 	{
+		if ( selector.m_combinator == combinator_grouped )
+		{
+			return select(*selector.m_left, apply_pseudo);
+		}
 		return select_no_match;
 	}
 	if(selector.m_left)
@@ -568,6 +572,9 @@ int litehtml::html_tag::select(const css_selector& selector, bool apply_pseudo)
 		}
 		switch(selector.m_combinator)
 		{
+		case combinator_grouped:
+			return right_res;
+			break;
 		case combinator_descendant:
 			{
 				bool is_pseudo = false;
