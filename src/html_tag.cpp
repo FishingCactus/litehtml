@@ -2348,7 +2348,7 @@ bool litehtml::html_tag::set_pseudo_class( const tchar_t* pclass, bool add )
 		ret = m_pseudo_classes.erase(pclass) > 0;
 	}
 
-	m_dirty_style |= ret;
+	//m_dirty_style |= ret;
 
 	return ret;
 }
