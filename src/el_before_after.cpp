@@ -4,6 +4,8 @@
 #include "el_space.h"
 #include "el_image.h"
 
+#include "string_hash.h"
+
 litehtml::el_before_after_base::el_before_after_base( litehtml::document* doc, bool before ) : html_tag(doc)
 {
 	if(before)
@@ -130,9 +132,11 @@ void litehtml::el_before_after_base::add_text( const tstring& txt )
 	}
 }
 
+static std::vector<litehtml::string_hash> function_list = { litehtml::string_hash( "attr" ), litehtml::string_hash( "counter" ), litehtml::string_hash( "url" ) };
+
 void litehtml::el_before_after_base::add_function( const tstring& fnc, const tstring& params )
 {
-	int idx = value_index(fnc.c_str(), _t("attr;counter;url"));
+	int idx = value_index(fnc.c_str(), function_list );
 	switch(idx)
 	{
 	// attr
